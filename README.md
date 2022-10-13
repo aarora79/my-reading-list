@@ -1,7 +1,7 @@
 # My Reading List
 ---
 
-As a child I liked reading books but then over the years I lost the habit. Then a friend gifted me a book on my birthday and it helped me rediscover reading. There were two other factors that helped me get back to reading, 1/ I had a little more time at hand due to Covid lockdowns and 2/ As they say one good As it turned out, a couple of months later the world went into lockdown and that meant I had a little more time and hand and One of the changes in my life due to Covid was, I got backI always wanted to read more booBooks I have read or want to read.
+As a child I liked reading books but then over the years I lost the habit. Then a friend gifted me a book on my birthday and it helped me rediscover reading. There were two other factors that helped me get back to reading, 1/ I had a little more time at hand due to Covid lockdowns and 2/ As they say one good habit begets another, so as I focussed more on physical fitness it had other positive side effects, reading more was one of them (I felt what else could I accomplish that I never thought possible).
 
 |Book        |Author     |Genre|Year Purchased/Read|Reading Status              |Notes                                                                           |
 |------------|-----------|-----|---------|----------------------------|--------------------------------------------------------------------------------|
