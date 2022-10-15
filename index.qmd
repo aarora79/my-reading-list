@@ -1,6 +1,9 @@
 ---
 title: "Amit's Reading List"
-format: html
+subtitle: "A lifetime is not enough to read all the books I want to read!" 
+date: last-modified
+author: "Amit Arora"
+slug: index
 ---
 
 As a child I liked reading books but then over the years I lost the habit. Then a friend gifted me a book on my birthday and it helped me rediscover reading. There were two other factors that helped me get back to reading:
