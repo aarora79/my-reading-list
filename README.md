@@ -10,3 +10,5 @@ As a child I liked reading books but then over the years I lost the habit. Then 
 Hop over to [https://aarora79.github.io/my-reading-list/](https://aarora79.github.io/my-reading-list/) to see my reading list and some analytics about it. 
 
 Initially I thought I will make a simple Markdown list in a README.md file which has a list of books, but then I ended up using [Quarto](https://quarto.org/) over a few hours on a weekend to create a site hosted on [GitHub Pages](https://quarto.org/docs/publishing/github-pages.html#:~:text=There%20are%20three%20ways%20to,publish%20from%20the%20docs%20directory.). 
+
+I would love to get book recommendations, if you would like to recommend a book then please create an Issue.
