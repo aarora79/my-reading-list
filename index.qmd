@@ -7,61 +7,133 @@ slug: index
 theme: cosmo
 ---
 
+```{r setup}
+#| echo: false
+#| warning: false
+library(gt)
+library(glue)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(ggtext)
+library(ggpmisc)
+library(ggthemes)
+library(gtExtras)
+library(janitor)
+library(tidyverse)
+
+books <- read_csv("books.csv") %>%
+    janitor::clean_names()
+books_read <- books %>%
+  filter(reading_status == "Finished")
+genres <- unique(books$genre)
+
+total <- nrow(books)
+total_adjusted <- total - nrow(books %>% filter(reading_status == "On the bookshelf, but probably not gonna read" | reading_status == "Started but could not finish"))
+finished <- nrow(books %>% filter(reading_status == "Finished"))
+reading_backlog <- round((total_adjusted - finished)/total_adjusted, 2)
+
+reading_backlog_status <- case_when(
+  reading_backlog < 0.3 ~ "a very healthy",
+  reading_backlog >= 0.3 & reading_backlog < 0.5 ~ "a reasonably ok",
+  TRUE ~ "an unhealthy"
+)
+# print(genres)
+# print(unique(books$reading_status))
+```
 As a child I liked reading books but then over the years I lost the habit. Then a friend gifted me a book on my birthday and it helped me rediscover reading. There were two other factors that helped me get back to reading:
 
 1. The Covid lockdowns of 2020 provided a little more time at hand. I could give time and energy to things I really wanted to do.
 
 1. One good  habit begets another, so as I started focussing more on physical fitness it had other positive side effects. I thought what else could I accomplish that I never thought possible, getting back to reading was a long standing desire.
 
+To track the effectiveness of my reading habit, I define a metric that I like to call `reading backlog`. The `reading backlog` is defined as follows:
+$$
+\frac{number\:of\:books\:to\:read}{number\:of\:books\:excluding\:the\:ones\:I\:would\:probably\:never\:read}
+$$
 
-|Book        |Author     |Genre|Year Read or Purchased|Reading Status              |Notes                                                                           |
-|------------|-----------|-----|----------------------|----------------------------|--------------------------------------------------------------------------------|
-|Stolen Focus|Johann Hari|Productivity|2022                  |In progress - currently reading|                                                                                |
-|The Elements of Style|William Strunk Jr. and E.B. White|Writing|2022                  |Yet to start                |                                                                                |
-|Mathematics for Machine Learning|Deisenroth, Faisal and Ong|Math |2022                  |In progress - currently reading|                                                                                |
-|How to Argue with a Racist|Adam Rutherford|Non-fiction|2022                  |Started but on hold         |                                                                                |
-|Superhuman  |Rowan Hooper|Productivity|2022                  |Finished                    |                                                                                |
-|The ONE Thing: The Surprisingly Simple Truth About Extraordinary Results|Gary Keller, Jay Papasan|Productivity|2022                  |Finished                    |Very Highly Recommend                                                           |
-|Behave      |Robert Sapolsky|Biology|2022                  |Started but could not finish|Great book but just too dense (easier to watch videos of the author on YouTube) |
-|Linear Algebra and Optimization for Machine Learning|Charu C Aggarwal|Math |2022                  |Yet to start                |                                                                                |
-|Breathing for Warriors|Belisa Vranich|Health|2021                  |Finished                    |                                                                                |
-|Dopamine Nation|Anna Lembke|Health|2022                  |Finished                    |Highly recommend                                                                |
-|The coddling of the American mind|Greg Lukianoff and Jonathan Haidt|Non-fiction|2019                  |Partially Read              |                                                                                |
-|Code Breaker|Walter Issacson|Science|2021                  |Partially Read              |                                                                                |
-|Deep Work   |Cal Newport|Productivity|2021                  |Finished                    |                                                                                |
-|The Infinite Game|Simon Sinek|Productivity|2020                  |Finished                    |                                                                                |
-|The Biology of Belief|Bruce H Lipton|Biology|2021                  |Partially Read              |                                                                                |
-|Eat Like the Animals|David Raubenheimer, Stephen J Simpson|Nutrition|2021                  |Finished                    | Highly Recommend                                                               |
-|Atomic Habits|James Clear|Productivity|2020                  |Finished                    |Very Highly Recommend                                                           |
-|The Art of Impossible|Steven Kotler|Productivity|2022                  |Finished                    |                                                                                |
-|Think Again |Adam Grant |Productivity|2020                  |Finished                    |                                                                                |
-|Can't Hurt Me|David Googins|Autobiography|2021                  |Finished                    |Highly Recommend                                                                |
-|Finding Ultra|Rich Roll  |Autobiography|2021                  |Finished                    |Highly Recommend                                                                |
-|Outliers    |Malcom Gladwell|Psychology|2021                  |Finished                    |Highly Recommend                                                                |
-|Why We Sleep|Matthew Walker|Health|2021                  |Finished                    |Very Highly Recommend                                                           |
-|Man's Search for Meaning|Viktor E. Frankl|Psychology|2021                  |Finished                    |Very Highly Recommend                                                           |
-|The Circadian Code|Satchin Panda|Health|2020                  |Finished                    |                                                                                |
-|How Fascism Works|Jason Stanley|Politics|2020                  |Partially Read              |                                                                                |
-|Ghosting the News|Margaret Sullivan|Politics|2020                  |Partially Read              |                                                                                |
-|Twilight of Democracy|Anne Applebaum|Politics|2020                  |Partially Read              |                                                                                |
-|The Death of Expertise|Tom Nichols|Non-fiction|2020                  |Finished                    |Highly Recommend                                                                |
-|Breath      |James Nestor|Health|2020                  |Finished                    |Very Highly Recommend                                                           |
-|Stillness is the key|Ryan Holiday|Philosophy|2021                  |Finished                    |Very Highly Recommend                                                           |
-|The pleasure of finding things out|Richard Feynman|Science|2021                  |Yet to start                |                                                                                |
-|Architects of Intelligence: The truth about AI from the people ...|Martin Ford|Science|2020                  |On the bookshelf, but probably not gonna read|                                                                                |
-|Anatomy of Exercise|Mannocchia |Health|2021                  |On the bookshelf, but probably not gonna read|                                                                                |
-|Never Give Up: My Life in the Wild|Bear Grylls|Autobiography|2022                  |Read intermittently         |                                                                                |
-|Noise: A Flaw in Human Judgment|Cass R. Sunstein, Daniel Kahneman, and Olivier Sibony|Psychology|2022                  |On the bookshelf, but probably not gonna read|                                                                                |
-|Thinking Fast and Slow|Daniel Kahneman|Psychology|2021                  |Read intermittently         |Highly Recommend                                                                |
-|Rashmirathi (Hindi)|Ramdhari Sigh Dinkar|Poetry|2021                  |Finished                    |Very Highly Recommend                                                           |
-|Natural Born Heroes|Christopher McDougall|Psychology|2021                  |Read intermittently         |                                                                                |
-|The Shadow of the Great Game|Narinder Singh Sarila|History|2015                  |On the bookshelf, but probably not gonna read|                                                                                |
-|The Great Partition|Yasmin Khan|History|2015                  |On the bookshelf, but probably not gonna read|                                                                                |
-|The Wrong Enemy|Carlotta Gall|World Affairs|2014                  |Partially Read              |                                                                                |
-|America in Retreat|Bret Stephens|World Affairs|2014                  |Partially Read              |                                                                                |
-|Fighting till the end: The Pakistan Army's Way of War|C. Christine Fair|Non-fiction|2014                  |Finished                    |                                                                                |
-|The Seige   |Adrian Levy and Cathy Scott-Clark |Non-fiction|2016                  |On the bookshelf, but probably not gonna read|                                                                                |
-|Fire and Fury|Michael Wolf|Politics|2019                  |On the bookshelf, but probably not gonna read|                                                                                |
-|An Uncertain Glory: India and its contradictions|Dreze & Sen|Economics|2015                  |On the bookshelf, but probably not gonna read|                                                                                |
-|The Autobiography of a Yogi|Paramhans Yoganand|Spirituality|2014                  |Finished                    |The only book that I have read more than once, cover to cover.                  |
+The lower the `reading backlog` value the better. As of `r Sys.Date()`, the `reading backlog` stands at _`r reading_backlog_status`_ value of `r reading_backlog`. The number of books on my bookshelf that I still plan to read is `r total_adjusted - finished`.
 
+Here is a graphic showing what genres I like to read. Productiviy and health stand out.
+
+```{r}
+#| echo: false
+#| warning: false
+book_counts_by_genre <- books %>%
+  filter(reading_status == "Finished") %>%
+  count(genre, sort=TRUE)
+
+genre_w_most_books1 <- book_counts_by_genre$genre[1]
+genre_w_most_books2 <- book_counts_by_genre$genre[2]
+
+book_counts_by_genre %>%
+  ggplot(aes(x=reorder(genre, -n), y=n, col=genre, fill=genre)) + 
+  geom_bar(stat="identity") + 
+  scale_y_continuous(breaks = pretty_breaks()) + 
+  coord_flip() +
+  scale_color_tableau() + 
+  scale_fill_tableau() +
+  labs(title="I like to read books across different genres",
+       subtitle = glue("Seems like <span style='color:#FF00FF'>**\"{genre_w_most_books1}\" and \"{genre_w_most_books2}\"**</span> are the genres I like the most!")) +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none", plot.subtitle = element_markdown()) +
+  theme(axis.title = element_text()) +
+  ylab('Number of books') +
+  xlab("")
+```
+
+```{r}
+#| execute: false
+#| echo: false
+#| warning: false
+p <- books %>%
+  filter(reading_status == "Finished") %>%
+  count(year_read_or_purchased, sort=TRUE) %>%
+  ggplot(aes(x=year_read_or_purchased, y=n)) +
+  geom_line(size=1) + 
+  geom_point(size=2) +
+  scale_y_continuous(labels = comma) +
+  theme_fivethirtyeight() +
+  scale_color_tableau(palette="Tableau 20") +
+  scale_fill_tableau(palette="Tableau 20") +
+  labs(title="Books read per year") +
+  theme(legend.position="bottom") +
+  theme(text = element_text(size=15)) +
+  theme(axis.title = element_text()) +
+  ylab("Number of books read") + xlab("")
+```
+```{r}
+#| echo: false
+#| warning: false
+books %>%
+  replace_na(list(notes = '-')) %>%
+  arrange(desc(year_read_or_purchased)) %>%
+  gt() %>%
+  gt_highlight_rows(rows=reading_status=="Currently Reading", font_weight = "normal") %>%
+  cols_label(
+    book = "Book",
+    author = "Author",
+    genre = "Genre",
+    year_read_or_purchased = "Year",
+    reading_status="Reading Status",
+    notes="Notes"
+  ) %>%
+  tab_header(title="Amit's book list",
+             subtitle=glue("{nrow(books)} books, {length(genres)} genres, {max(books$year_read_or_purchased)-min(books$year_read_or_purchased)} years")) %>%
+  tab_style(
+     locations = cells_column_labels(columns = everything()),
+     style     = list(
+       #Give a thick border below
+       cell_borders(sides = "bottom", weight = px(3)),
+       #Make text bold
+       cell_text(weight = "bold")
+     )
+   ) %>% 
+   #Apply different style to the title
+   tab_style(
+     locations = cells_title(groups = "title"),
+     style     = list(
+       cell_text(weight = "bold", size = 24)
+     )
+   )
+```
