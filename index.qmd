@@ -111,6 +111,22 @@ books %>%
   arrange(desc(year_read_or_purchased)) %>%
   gt() %>%
   gt_highlight_rows(rows=reading_status=="Currently Reading", font_weight = "normal") %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "darkolivegreen1")
+    ),
+    locations = cells_body(
+      
+      rows = reading_status=="Finished")
+  ) %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "lightcyan")
+    ),
+    locations = cells_body(
+      
+      rows = reading_status=="Partially Read")
+  ) %>%
   cols_label(
     book = "Book",
     author = "Author",
