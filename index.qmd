@@ -138,3 +138,7 @@ books %>%
      )
    )
 ```
+
+:::{.callout-note}
+This website was created using Quarto and GitHub actions, please see [https://github.com/aarora79/my-reading-list](https://github.com/aarora79/my-reading-list).
+:::
