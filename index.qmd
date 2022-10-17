@@ -60,21 +60,22 @@ Here is a graphic showing what genres I like to read. Productiviy and health sta
 #| echo: false
 #| warning: false
 book_counts_by_genre <- books %>%
-  filter(reading_status == "Finished") %>%
+  #filter(reading_status == "Finished") %>%
   count(genre, sort=TRUE)
 
 genre_w_most_books1 <- book_counts_by_genre$genre[1]
 genre_w_most_books2 <- book_counts_by_genre$genre[2]
+genre_w_most_books3 <- book_counts_by_genre$genre[3]
 
 book_counts_by_genre %>%
   ggplot(aes(x=reorder(genre, -n), y=n, col=genre, fill=genre)) + 
   geom_bar(stat="identity") + 
   scale_y_continuous(breaks = pretty_breaks()) + 
   coord_flip() +
-  scale_color_tableau() + 
-  scale_fill_tableau() +
+  scale_color_tableau(palette = "Tableau 20",) + 
+  scale_fill_tableau(palette = "Tableau 20") +
   labs(title="I like to read books across different genres",
-       subtitle = glue("Seems like <span style='color:#FF00FF'>**\"{genre_w_most_books1}\" and \"{genre_w_most_books2}\"**</span> are the genres I like the most!")) +
+       subtitle = glue("<span style='color:#FF00FF'>**\"{genre_w_most_books1}\", \"{genre_w_most_books2}\" and \"{genre_w_most_books3}\"**</span> are the genres I like the most!")) +
   theme_fivethirtyeight() +
   theme(legend.position = "none", plot.subtitle = element_markdown()) +
   theme(axis.title = element_text()) +
