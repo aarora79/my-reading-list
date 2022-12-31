@@ -136,7 +136,7 @@ books %>%
     notes="Notes"
   ) %>%
   tab_header(title="Amit's book list",
-             subtitle=glue("{nrow(books)} books, {length(genres)} genres, {max(books$year_read_or_purchased)-min(books$year_read_or_purchased)} years")) %>%
+             subtitle=glue("{nrow(books)} books, {length(genres)} genres, {max(books$year_read_or_purchased, na.rm=TRUE)-min(books$year_read_or_purchased, na.rm=TRUE)} years")) %>%
   tab_style(
      locations = cells_column_labels(columns = everything()),
      style     = list(
